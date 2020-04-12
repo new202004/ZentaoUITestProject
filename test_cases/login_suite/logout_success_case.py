@@ -1,10 +1,9 @@
-# 判断禅道是否成功
-import HTMLTestRunner
-import os
+# 判断禅道退出是否成功
 import time
 import unittest
+
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 from common import login, config_value, set_driver
 
 
@@ -17,9 +16,12 @@ class LoginFailedCase(unittest.TestCase):
         self.driver.quit()
 
     def test_login(self):
-        """使用test01登录禅道失败"""
-        login.login(config_value.config.user_name, '111', self.driver)
-        self.assertTrue(WebDriverWait(self.driver, 10).until(EC.alert_is_present()))  # 方法二
+        """退出禅道成功"""
+        login.login(config_value.config.user_name, config_value.config.password, self.driver)
+        self.driver.find_element(By.XPATH, '//a[@class="dropdown-toggle"]').click()
+        time.sleep(2)
+        self.driver.find_element(By.XPATH, '//a[contains(@href,"/zentao/www/index.php?m=user&f=logout")]').click()
+        self.assertTrue(EC.title_is(" 用户登录 - 禅道"))
 
 
 if __name__ == '__main__':

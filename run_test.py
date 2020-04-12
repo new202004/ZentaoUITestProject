@@ -16,5 +16,5 @@ main_suite.addTest(discover)
 
 suite = unittest.TestSuite()
 file = open(html_path, 'wb')
-html_runner = HTMLTestRunner.HTMLTestRunner(stream=file, title='禅道UI自动化测试项目', description='由自动化测试组完成，包含大部分')
+html_runner = HTMLTestRunner.HTMLTestRunner(stream=file, title='禅道UI自动化测试项目', description='UI自动化测试完成，包含大部分')
 html_runner.run(main_suite)
